@@ -23,7 +23,6 @@ export default function CalculatingPage() {
   const [percent, setPercent] = useState(0);
 
   useEffect(() => {
-    // Run level calculation
     const levelResult = computeLearningLevel(childAge, handwritingAnswers, readingAnswers, readingReason);
     setCalculatedLevel(levelResult);
 
@@ -31,7 +30,6 @@ export default function CalculatingPage() {
       localStorage.setItem('calculatedLevel', JSON.stringify(levelResult));
     } catch (_) {}
 
-    // Animate percentage from 0 to 100
     const interval = setInterval(() => {
       setPercent((prev) => {
         if (prev >= 100) {
@@ -68,7 +66,6 @@ export default function CalculatingPage() {
           {formattedChildName}&apos;s learning level is being calculated
         </h1>
 
-        {/* Circular Progress Bar */}
         <div className="relative w-[220px] h-[220px] flex items-center justify-center mb-10">
           <svg className="w-full h-full transform -rotate-90" viewBox="0 0 220 220">
             <circle

@@ -61,7 +61,6 @@ export default function SupportHistory() {
         newHistory = [...options];
       }
     } else {
-      // Remove "All of the above" if it was there and we're toggling something else
       if (newHistory.includes("All of the above")) {
         newHistory = newHistory.filter(h => h !== "All of the above");
       }
@@ -72,7 +71,6 @@ export default function SupportHistory() {
         newHistory.push(option);
       }
 
-      // If all individual options are selected, add "All of the above"
       const individualOptions = options.filter(o => o !== "All of the above");
       const allSelected = individualOptions.every(o => newHistory.includes(o));
       if (allSelected) {

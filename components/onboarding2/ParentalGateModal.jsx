@@ -26,7 +26,6 @@ export default function ParentalGateModal({ isOpen, onClose, onSuccess, currentT
     }
   }, [isOpen]);
 
-  // Disable native keyboard input completely so only on-screen numbers keyboard is used
   useEffect(() => {
     if (!isOpen) return;
 
@@ -35,7 +34,6 @@ export default function ParentalGateModal({ isOpen, onClose, onSuccess, currentT
         onClose();
         return;
       }
-      // Disable any native typing (hardware keyboard, software keyboard if focused, etc.)
       e.preventDefault();
       e.stopPropagation();
     };
@@ -84,7 +82,6 @@ export default function ParentalGateModal({ isOpen, onClose, onSuccess, currentT
   return (
     <AnimatePresence>
       <div className="fixed inset-0 z-50 flex flex-col items-center justify-start pt-14 sm:pt-20 px-4 bg-black/50 backdrop-blur-sm overflow-hidden select-none">
-        {/* Modal Card */}
         <motion.div
           initial={{ opacity: 0, scale: 0.94, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -99,7 +96,6 @@ export default function ParentalGateModal({ isOpen, onClose, onSuccess, currentT
             To continue, please answer: {numA} + {numB} = ?
           </p>
 
-          {/* ReadOnly display box: completely disables native software/hardware keyboards */}
           <div
             tabIndex={-1}
             role="textbox"
@@ -146,7 +142,6 @@ export default function ParentalGateModal({ isOpen, onClose, onSuccess, currentT
           </div>
         </motion.div>
 
-        {/* Custom On-Screen Numbers Keyboard */}
         <motion.div
           initial={{ y: '100%' }}
           animate={{ y: 0 }}
@@ -155,7 +150,6 @@ export default function ParentalGateModal({ isOpen, onClose, onSuccess, currentT
           className="fixed bottom-0 left-0 right-0 z-[60] bg-[#f2f4f8] border-t border-slate-200 shadow-2xl flex flex-col items-center"
         >
           <div className="w-full max-w-[520px] flex flex-col">
-            {/* Top Toolbar */}
             <div className="w-full h-11 px-4 flex items-center justify-between border-b border-slate-200/80 bg-[#f8fafc]">
               <button
                 type="button"
@@ -173,7 +167,6 @@ export default function ParentalGateModal({ isOpen, onClose, onSuccess, currentT
               </button>
             </div>
 
-            {/* Numeric Keypad Grid */}
             <div className="w-full grid grid-cols-3 gap-1.5 p-2 pb-5 sm:pb-6">
               {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map((digit) => (
                 <motion.button
@@ -187,7 +180,6 @@ export default function ParentalGateModal({ isOpen, onClose, onSuccess, currentT
                 </motion.button>
               ))}
 
-              {/* Row 4: Clear, 0, Backspace */}
               <motion.button
                 whileTap={{ scale: 0.96 }}
                 type="button"

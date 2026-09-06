@@ -71,8 +71,6 @@
   }
 }
 
-
-/* Target iPhones in portrait mode */
 @media only screen and (max-device-width: 430px) and (orientation: portrait) {
   header.pt-4 {
     padding-top: 55px !important;
@@ -86,5 +84,4 @@
     padding-top: 55px !important;
   }
 
-  
 }

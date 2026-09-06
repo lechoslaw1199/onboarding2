@@ -71,7 +71,6 @@ export default function LearningDifferences() {
     } else if (option === "Yes, my child has autism") {
       router.push("/social-proof-autism");
     } else {
-      // Future navigation for other learning differences
       alert(`Selection: ${option}`);
     }
   };

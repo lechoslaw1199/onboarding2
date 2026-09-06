@@ -38,7 +38,6 @@ export default function LearningLevelPage() {
     currentTheme,
   } = useOnboarding2();
 
-  // Dynamically derive the active level from the user's answers across previous screens
   const activeLevel = useMemo(() => {
     if (calculatedLevel && typeof calculatedLevel.levelIndex === 'number') {
       return calculatedLevel;
@@ -73,7 +72,6 @@ export default function LearningLevelPage() {
           This is <span style={{ color: currentTheme?.hex || '#F9C700' }}>{formattedChildName}</span>&apos;s learning level
         </h1>
 
-        {/* Level Indicator Card */}
         <div className="w-full max-w-[420px] bg-white border border-slate-200 rounded-2xl p-5 mb-6 shadow-sm">
           <div className="flex justify-between items-center mb-4 px-1">
             {LEVEL_LABELS.map((lbl, idx) => (
@@ -122,7 +120,6 @@ export default function LearningLevelPage() {
           </div>
         </div>
 
-        {/* Learning Outcomes for This Phase */}
         <div className="w-full max-w-[420px] text-left mb-6">
           <h2 className="text-[18px] font-bold text-[#221750] mb-3 px-1">
             During this learning phase, LetterSchool helps {formattedChildName} build these skills:

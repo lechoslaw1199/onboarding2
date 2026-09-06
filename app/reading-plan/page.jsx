@@ -30,21 +30,17 @@ export default function ReadingPlanPage() {
   const handleContinue = () => {
     updateDirection(1);
 
-    // Retrieve idfv and letterschool_id from localStorage
     const idfv = typeof window !== 'undefined' ? localStorage.getItem('idfv') : null;
     const letterschoolId = typeof window !== 'undefined' ? localStorage.getItem('letterschool_id') : null;
 
-    // Construct the base URL
     const baseUrl = 'https://lttrschl.com/onboardingX/en-us-102/index-keyboard-paywall.html?page=paywall';
     const params = new URLSearchParams();
 
     if (idfv) params.append('idfv', idfv);
     if (letterschoolId) params.append('letterschool_id', letterschoolId);
 
-    // Append parameters if they exist
     const finalUrl = params.toString() ? `${baseUrl}&${params.toString()}` : baseUrl;
 
-    // Standardize redirect to the static high-fidelity checkout page
     window.location.href = finalUrl;
   };
 
@@ -55,7 +51,6 @@ export default function ReadingPlanPage() {
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center px-6 font-quicksand bg-[#0F172A]">
-      {/* Header */}
       <header className="w-full max-w-[450px] flex items-center justify-center py-6 relative shrink-0">
         <button 
           className="absolute left-0 text-white flex items-center justify-center w-10 h-10 rounded-full hover:bg-white/10 transition-colors" 
@@ -83,7 +78,6 @@ export default function ReadingPlanPage() {
           {childName ? `${childName}'s` : "Your Child's"} Learning Plan
         </h1>
 
-        {/* Graph Card */}
         <div className="w-full bg-[#1E293B] border border-slate-700/60 rounded-3xl p-6 shadow-2xl mb-4 relative overflow-hidden">
           <div className="text-center mb-4">
             <h2 className="text-[17px] font-bold text-white mb-1">Based on 3-4 Sessions per week</h2>
@@ -92,7 +86,6 @@ export default function ReadingPlanPage() {
             </p>
           </div>
 
-          {/* SVG Graph */}
           <div className="w-full aspect-[4/3] relative">
             <svg viewBox="0 0 340 240" className="w-full h-full overflow-visible">
               <defs>
@@ -103,7 +96,6 @@ export default function ReadingPlanPage() {
                 </linearGradient>
               </defs>
 
-              {/* Grid Lines */}
               {[50, 90, 130, 170, 210].map((y, i) => (
                 <motion.line
                   key={y}
@@ -115,7 +107,6 @@ export default function ReadingPlanPage() {
                 />
               ))}
 
-              {/* Start State */}
               <motion.g
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -128,7 +119,6 @@ export default function ReadingPlanPage() {
                 <text x="40" y="235" textAnchor="middle" fill="#38BDF8" className="text-[13px] font-bold opacity-90">Today</text>
               </motion.g>
 
-              {/* Curve Drawing */}
               <motion.path
                 d="M 40 170 C 130 170, 240 140, 295 50"
                 fill="transparent"
@@ -140,7 +130,6 @@ export default function ReadingPlanPage() {
                 transition={{ delay: 1.0, duration: 1.2, ease: "easeOut" }}
               />
 
-              {/* End State */}
               <motion.g
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -157,14 +146,12 @@ export default function ReadingPlanPage() {
           </div>
         </div>
 
-        {/* Footer Text */}
         <p className="text-[14px] text-slate-300 text-center leading-relaxed px-4 mb-24 font-medium">
           LetterSchool includes <span className="font-bold text-[#38BDF8]">comprehensive handwriting &amp; phonics curriculum</span> — with uppercase, lowercase, numbers, and spelling modules.
         </p>
 
       </motion.main>
 
-      {/* Continue Button */}
       <motion.div
         custom={direction}
         variants={pageVariants}

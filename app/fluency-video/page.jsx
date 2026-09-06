@@ -52,7 +52,6 @@ export default function FluencyVideo() {
     }
   };
 
-  // Dynamic title based on focus duration
   let title = "Even just 5-10 minutes at a time can make a difference";
   if (focusDuration && focusDuration !== "It depends on the day") {
     const duration = focusDuration.toLowerCase();

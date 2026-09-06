@@ -38,7 +38,6 @@ export function useImagePreload(srcs) {
       }
     });
 
-    // Cleanup
     return () => {
       filteredSources.forEach(src => {
         const img = new Image();

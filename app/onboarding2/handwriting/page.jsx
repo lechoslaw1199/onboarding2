@@ -122,7 +122,6 @@ export default function HandwritingPage() {
           <span className="font-bold">Choose your font:</span> LetterSchool aligns with the US school curriculum — here are the most commonly used fonts. Let’s match them to {formattedChildName}’s learning.
         </p>
 
-        {/* Font Style Cards */}
         <div className="grid grid-cols-2 gap-3 w-full max-w-[420px] mb-8">
           {STYLES.map((st) => {
             const isSelected = handwritingStyle === st.id;
@@ -151,7 +150,6 @@ export default function HandwritingPage() {
           })}
         </div>
 
-        {/* Step 2: Questions (revealed when style selected) */}
         {handwritingStyle && (
           <div ref={questionsRef} className="w-full max-w-[420px] flex flex-col items-center pt-2">
             <h2 className="text-[24px] font-bold text-[#221750] text-center mb-6">

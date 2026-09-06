@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function BackgroundWrapper({ children }) {
   const pathname = usePathname();
   
-  // Determine background color based on route
   const isDarkPage = pathname === "/reading-plan";
   const bgColor = isDarkPage ? "#241952" : "#ffffff";
 

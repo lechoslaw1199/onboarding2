@@ -7,7 +7,6 @@ const OnboardingContext = createContext();
 const STORAGE_KEY = 'reading_onboarding_data';
 
 export function OnboardingProvider({ children }) {
-  // Core states
   const [selectedAge, setSelectedAge] = useState(null);
   const [selectedReason, setSelectedReason] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState(null);
@@ -28,21 +27,18 @@ export function OnboardingProvider({ children }) {
   const [direction, setDirection] = useState(1); // 1 = forward, -1 = backward
   const [isInitialized, setIsInitialized] = useState(false);
 
-  // Load from localStorage on mount
   useEffect(() => {
     const savedData = localStorage.getItem(STORAGE_KEY);
     if (savedData) {
       try {
         const data = JSON.parse(savedData);
         
-        // 10-minute TTL check (10 * 60 * 1000 ms)
         const tenMinutes = 10 * 60 * 1000;
         const now = Date.now();
         
         if (data.timestamp && (now - data.timestamp > tenMinutes)) {
           console.log("Onboarding data expired. Clearing storage.");
           localStorage.removeItem(STORAGE_KEY);
-          // Also clear individual keys used by static pages if any
           localStorage.removeItem('onboarding_childName'); 
         } else {
           if (data.selectedAge) setSelectedAge(data.selectedAge);
@@ -70,7 +66,6 @@ export function OnboardingProvider({ children }) {
     setIsInitialized(true);
   }, []);
 
-  // Sync to localStorage on change
   useEffect(() => {
     if (!isInitialized) return;
 
@@ -96,7 +91,6 @@ export function OnboardingProvider({ children }) {
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
     
-    // Also sync the separate key used by static checkout.html
     if (childName) {
       localStorage.setItem('onboarding_childName', childName);
     }

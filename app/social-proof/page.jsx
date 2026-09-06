@@ -99,7 +99,6 @@ export default function SocialProofPage() {
           </p>
         </div>
 
-        {/* Review Cards */}
         <div className="w-full flex flex-col gap-4 mb-2">
           {parentReviews.map((review, index) => (
             <div

@@ -52,7 +52,6 @@ export default function ReferralPage() {
   const handleOptionSelect = (option) => {
     setReferralSource(option);
     
-    // Auto-navigate after a brief delay so they see the selection
     setTimeout(() => {
       updateDirection(1);
       router.push("/personalizing");

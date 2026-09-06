@@ -73,9 +73,7 @@ export default function PaywallPage() {
             : 'Save up to 50% with the Annual Plan after your 7 day free trial'}
         </h1>
 
-        {/* Review Quote Box matching reference screenshot */}
         <div className="relative w-full max-w-[420px] bg-[#fdeee0] rounded-[24px] p-6 shadow-[0_4px_10px_rgba(0,0,0,0.05)] text-left mb-6">
-          {/* Top-left quote mark */}
           <span
             aria-hidden="true"
             className="absolute -top-[28px] sm:-top-[34px] -left-[8px] sm:-left-[12px] font-serif text-[48px] sm:text-[64px] text-[#ffc289] leading-none select-none pointer-events-none"
@@ -83,7 +81,6 @@ export default function PaywallPage() {
             “
           </span>
 
-          {/* Bottom-right quote mark */}
           <span
             aria-hidden="true"
             className="absolute -bottom-[28px] sm:-bottom-[34px] -right-[8px] sm:-right-[12px] font-serif text-[48px] sm:text-[64px] text-[#ffc289] leading-none select-none pointer-events-none"
@@ -91,7 +88,6 @@ export default function PaywallPage() {
             ”
           </span>
 
-          {/* Highlight with 4 Stars & Title */}
           <div className="font-bold text-[16px] text-[#221750] mb-2 leading-snug flex items-center">
             <span className="inline-flex items-center gap-1 mr-2 align-middle">
               {[...Array(4)].map((_, i) => (
@@ -107,20 +103,16 @@ export default function PaywallPage() {
             <span>Great learning support at home</span>
           </div>
 
-          {/* Quote Body */}
           <p className="font-normal text-[15px] sm:text-[16px] text-[#333333] leading-[1.6] m-0">
             LetterSchool is fun, easy to use, and really helps my child with handwriting and reading. Whether you&apos;re homeschooling or not, it’s a great way to boost learning at home.
           </p>
 
-          {/* Author */}
           <p className="mt-4 italic text-[14px] text-[#555555]">
             Susan H. (mom of 4yo &amp; 6yo)
           </p>
         </div>
 
-        {/* Plans */}
         <div className="w-full max-w-[420px] flex flex-col gap-4 mb-6">
-          {/* Annual Plan Card */}
           <div
             onClick={() => setSelectedPlan('annual')}
             className={`relative w-full rounded-[20px] pt-7 pb-4 px-4 text-left border-2 cursor-pointer transition-all ${
@@ -129,7 +121,6 @@ export default function PaywallPage() {
                 : 'border-[#E6E6F0] bg-[#F9F9FF] hover:border-slate-300'
             }`}
           >
-            {/* 50% Off Ribbon */}
             <div className="absolute -top-[2px] -left-[2px] -right-[2px] bg-[#221B4B] text-white text-[12px] font-extrabold py-1.5 rounded-t-[18px] text-center tracking-wider uppercase">
               50% OFF
             </div>
@@ -175,7 +166,6 @@ export default function PaywallPage() {
             </div>
           </div>
 
-          {/* Monthly Plan Card */}
           <div
             onClick={() => setSelectedPlan('monthly')}
             className={`relative w-full rounded-[20px] p-4 text-left border-2 cursor-pointer transition-all ${
@@ -221,7 +211,6 @@ export default function PaywallPage() {
           </div>
         </div>
 
-        {/* Checkout Footer */}
         <div className="w-full max-w-[420px] flex flex-col items-center pt-2">
           <p className="text-[13px] text-slate-700 mb-3 text-center">
             Cancel anytime in the App Store

@@ -47,7 +47,6 @@ export default function LessonPlan() {
     router.push("/fluency-video"); // Towards fluency video
   };
 
-  // Age text for info box
   const ageText = selectedAge ? `ages ${selectedAge}` : "this age";
 
   return (

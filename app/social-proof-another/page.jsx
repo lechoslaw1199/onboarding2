@@ -99,7 +99,6 @@ export default function SocialProofAnother() {
           </p>
         </div>
 
-        {/* Review Cards */}
         <div className="w-full flex flex-col gap-4 mb-2">
           {generalReviews.map((review, index) => (
             <div

@@ -67,7 +67,6 @@ export const REVIEWS = {
 export function getReviewForReason(reason) {
   if (!reason) return REVIEWS["I’m homeschooling my child"];
   if (REVIEWS[reason]) return REVIEWS[reason];
-  // Match ignoring apostrophe variations (straight vs curly)
   const clean = reason.replace(/['’]/g, '');
   for (const [key, val] of Object.entries(REVIEWS)) {
     if (key.replace(/['’]/g, '') === clean) return val;
@@ -177,7 +176,6 @@ function priorFromAge(ageNum) {
 export function computeLearningLevel(ageStr, hwAnswers = [], rpAnswers = [], readingReason = "") {
   const ageNum = parseInt(String(ageStr || '0').replace(/[^0-9]/g, ''), 10) || 0;
 
-  // Safely normalize answers arrays
   const hwList = Array.isArray(hwAnswers) ? hwAnswers : [];
   const rpList = Array.isArray(rpAnswers) ? rpAnswers : [];
 
@@ -190,30 +188,23 @@ export function computeLearningLevel(ageStr, hwAnswers = [], rpAnswers = [], rea
   const HW_level = domainLevelFromScore(hwRaw);
   const RP_level = domainLevelFromScore(rpRaw);
 
-  // Count answered questions
   const totalHwAnswered = hwList.filter(a => a !== null && a !== undefined && a !== '').length;
   const totalRpAnswered = rpList.filter(a => a !== null && a !== undefined && a !== '').length;
   const hasAssessmentData = totalHwAnswered > 0 || totalRpAnswered > 0;
 
-  // Domain-weighted assessment score (RP: 60%, HW: 40%), mapped to 0.0 - 4.0
   const rawAssessment = (0.6 * RP_level) + (0.4 * HW_level);
 
-  // Age prior (0 = Toddler, 1 = Preschool, 2 = Pre-K, 3 = Early Learner, 4 = Growing Learner)
   const prior = priorFromAge(ageNum);
 
   let combined;
   if (!hasAssessmentData) {
-    // If no assessment answers yet, default to age expectation or 3 (Early Learner)
     combined = ageNum > 0 ? prior : 3;
   } else if (ageNum > 0) {
-    // Heavy weighting on assessment answers (75%), modulated by age (25%)
     combined = (0.75 * rawAssessment) + (0.25 * prior);
   } else {
-    // No age provided, rely purely on assessment answers
     combined = rawAssessment;
   }
 
-  // Adjust for reading reason / special support needs
   const cleanReason = String(readingReason || '').toLowerCase();
   if (cleanReason.includes('struggling')) {
     combined -= 0.3; // Give struggling children a gentler, confidence-building start
@@ -221,14 +212,12 @@ export function computeLearningLevel(ageStr, hwAnswers = [], rpAnswers = [], rea
     combined += 0.15;
   }
 
-  // Bonus for mastering all or nearly all questions
   if (hwRaw >= 9 && rpRaw >= 9) {
     combined = Math.max(combined, 3.8); // Qualifies for Growing Learner
   } else if (hwRaw >= 7 && rpRaw >= 7 && ageNum >= 4) {
     combined = Math.max(combined, 2.7); // At least Early Learner
   }
 
-  // Safeguard: If child answered "No" / "None" to everything, don't force them higher than Preschool
   if (hwRaw <= 2 && rpRaw <= 2) {
     if (ageNum <= 3) {
       combined = Math.min(combined, 0.4); // Toddler
@@ -247,7 +236,6 @@ export function computeLearningLevel(ageStr, hwAnswers = [], rpAnswers = [], rea
     combined = Math.max(0, combined - 0.5);
   }
 
-  // Map continuous combined score to 0..4 discrete level index
   const levelIndex = Math.max(0, Math.min(4, Math.round(combined)));
 
   return {
@@ -279,14 +267,12 @@ export function Onboarding2Provider({ children }) {
   const [direction, setDirection] = useState(1);
   const [isInitialized, setIsInitialized] = useState(false);
 
-  // Automatically compute the learning level from the current assessment answers, age, and reason
   const activeCalculatedLevel = useMemo(() => {
     return computeLearningLevel(childAge, handwritingAnswers, readingAnswers, readingReason);
   }, [childAge, handwritingAnswers, readingAnswers, readingReason]);
 
   const effectiveCalculatedLevel = calculatedLevel || activeCalculatedLevel;
 
-  // Load state from localStorage on mount
   useEffect(() => {
     try {
       const savedData = localStorage.getItem(STORAGE_KEY);
@@ -322,7 +308,6 @@ export function Onboarding2Provider({ children }) {
     setIsInitialized(true);
   }, []);
 
-  // Save state to localStorage on updates
   useEffect(() => {
     if (!isInitialized) return;
 

@@ -6,7 +6,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { useImagePreload } from "@/hooks/useImagePreload";
 
-// Force dynamic rendering to prevent static export bailouts with useSearchParams
 export const dynamic = 'force-dynamic';
 
 const pageVariants = {
@@ -32,7 +31,6 @@ function AgeSelectionContent() {
   const searchParams = useSearchParams();
   const isReady = useImagePreload(["/letterschool-logo-name.svg", "/awards.png"]);
 
-  // Capture and store idfv & letterschool_id on mount
   useEffect(() => {
     const idfv = searchParams.get('idfv');
     const letterschoolId = searchParams.get('letterschool_id');

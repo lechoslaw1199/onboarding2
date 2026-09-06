@@ -48,7 +48,6 @@ export default function FeaturesTeaserPage() {
           Ready to help <span style={{ color: currentTheme?.hex || '#F9C700' }}>{formattedChildName}</span> learn to read and write?
         </h1>
 
-        {/* Social Proof Laurel Card */}
         <div className="w-full max-w-[400px] bg-gradient-to-b from-[#F7F5FF] to-white border border-[#E1DCFE] rounded-2xl p-6 shadow-sm flex flex-col items-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-3">
             <img
@@ -80,7 +79,6 @@ export default function FeaturesTeaserPage() {
           </div>
         </div>
 
-        {/* Feature Highlights */}
         <div className="w-full max-w-[380px] flex flex-col gap-3 text-left mb-8">
           <div className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
             <span className="text-[20px]">🏆</span>

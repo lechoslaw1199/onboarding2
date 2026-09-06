@@ -62,7 +62,6 @@ export default function ChildColorPage() {
           loves to learn with
         </p>
 
-        {/* 3x2 Color Buttons Grid matching reference */}
         <div className="grid grid-cols-3 gap-3.5 sm:gap-4 w-full max-w-[390px] sm:max-w-[410px] mb-8">
           {COLOR_OPTIONS.map((c) => {
             const isSelected = themeColor === c.id;

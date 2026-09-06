@@ -27,7 +27,6 @@ export default function ReviewPage() {
   const router = useRouter();
   const { direction, updateDirection, readingReason, currentTheme } = useOnboarding2();
 
-  // Dynamically select review based on the chosen reason from the reason page
   const review = getReviewForReason(readingReason);
 
   const handleNext = () => {
@@ -54,9 +53,7 @@ export default function ReviewPage() {
           Thousands of parents have already prepared their children for school with LetterSchool!
         </p>
 
-        {/* Review quote box styled exactly like .review__quote__block from en-us-102 */}
         <div className="relative w-full max-w-[420px] bg-[#fdeee0] rounded-[24px] p-6 shadow-[0_4px_10px_rgba(0,0,0,0.05)] text-left my-2">
-          {/* Top-left quote mark */}
           <span
             aria-hidden="true"
             className="absolute -top-[28px] sm:-top-[34px] -left-[8px] sm:-left-[12px] font-serif text-[48px] sm:text-[64px] text-[#ffc289] leading-none select-none pointer-events-none"
@@ -64,7 +61,6 @@ export default function ReviewPage() {
             “
           </span>
 
-          {/* Bottom-right quote mark */}
           <span
             aria-hidden="true"
             className="absolute -bottom-[28px] sm:-bottom-[34px] -right-[8px] sm:-right-[12px] font-serif text-[48px] sm:text-[64px] text-[#ffc289] leading-none select-none pointer-events-none"
@@ -72,17 +68,14 @@ export default function ReviewPage() {
             ”
           </span>
 
-          {/* Highlight / Stars & Title */}
           <p className="font-bold text-[16px] text-[#333333] mb-2 leading-snug">
             {review.highlight}
           </p>
 
-          {/* Main Quote Body */}
           <p className="font-normal text-[16px] text-[#333333] leading-[1.6] m-0">
             {review.quote}
           </p>
 
-          {/* Author Name */}
           <p className="mt-4 italic text-[14px] text-[#555555]">
             {review.name}
           </p>

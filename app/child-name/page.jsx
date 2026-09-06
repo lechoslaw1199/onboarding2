@@ -46,7 +46,6 @@ export default function ChildNamePage() {
 
   return (
     <div className={`w-full min-h-screen flex flex-col items-center bg-white px-6 font-quicksand overflow-x-hidden transition-all duration-300 ${showKeyboard ? 'pb-[340px]' : 'pb-12'}`}>
-      {/* Header */}
       <header className="w-full max-w-[450px] flex items-center justify-center py-6 relative">
         <button 
           className="absolute left-0 text-slate-700 flex items-center justify-center w-10 h-10 rounded-full hover:bg-black/5 transition-colors" 
@@ -75,7 +74,6 @@ export default function ChildNamePage() {
           Providing this info helps us pick content that&apos;s just right
         </p>
 
-        {/* Name Input */}
         <div className="w-full px-4 mb-5">
           <label className="block text-[15px] font-semibold text-[#221750] mb-2">
             What&apos;s your child&apos;s first name?
@@ -108,7 +106,6 @@ export default function ChildNamePage() {
           </div>
         </div>
 
-        {/* Continue Button */}
         <div className="w-full px-4 mb-6">
           <motion.button
             whileTap={name.trim() ? { scale: 0.98 } : {}}
@@ -122,7 +119,6 @@ export default function ChildNamePage() {
           </motion.button>
         </div>
 
-        {/* Tip Box */}
         <div className="w-full px-4 mb-6">
           <div className="bg-[#FFECFF] border border-[#FBA0FF] rounded-xl py-2.5 px-4 text-center">
             <p className="text-[13px] text-[#221750] font-medium">
@@ -133,7 +129,6 @@ export default function ChildNamePage() {
 
       </motion.main>
 
-      {/* On-Screen Virtual Keyboard */}
       <VirtualKeyboard
         value={name}
         onChange={setName}

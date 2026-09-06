@@ -43,7 +43,6 @@ export default function Blending() {
     router.push("/guarantee");
   };
 
-  // Pronoun helpers
   const getSubj = () => childGender === "Boy" ? "he" : childGender === "Girl" ? "she" : "they";
   const getObj = () => childGender === "Boy" ? "him" : childGender === "Girl" ? "her" : "them";
   const getPoss = () => childGender === "Boy" ? "his" : childGender === "Girl" ? "her" : "their";

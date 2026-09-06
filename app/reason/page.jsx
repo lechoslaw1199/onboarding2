@@ -53,7 +53,6 @@ export default function TeachingReason() {
     if (reason) {
       router.push("/learning-differences");
     } else {
-      // Future navigation could go here
       alert(`Reason selected: ${reason}`);
     }
   };

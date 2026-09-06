@@ -34,11 +34,9 @@ export default function ReadingLevelPage() {
 
   const handleContinue = () => {
     updateDirection(1);
-    // Route to the next page in the sequence
     router.push("/reading-plan"); 
   };
 
-  // Helper for dynamic pronouns
   const getPronoun = () => {
     if (childGender === "Boy") return "He";
     return "She"; // Default to She as per screenshot
@@ -46,7 +44,6 @@ export default function ReadingLevelPage() {
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center bg-white px-6 font-quicksand overflow-x-hidden">
-      {/* Header */}
       <header className="w-full max-w-[450px] flex items-center justify-center py-6 relative shrink-0">
         <button 
           className="absolute left-0 text-slate-700 flex items-center justify-center w-10 h-10 rounded-full hover:bg-black/5 transition-colors" 
@@ -68,7 +65,6 @@ export default function ReadingLevelPage() {
         exit="exit"
         className="w-full max-w-[430px] flex flex-col items-center pt-2 pb-32"
       >
-        {/* Certificate Image */}
         <div className="w-full flex justify-center mb-0">
           <img 
             src="/reading-level.jpeg" 
@@ -77,7 +73,6 @@ export default function ReadingLevelPage() {
           />
         </div>
 
-        {/* Dynamic Text */}
         <div className="text-start w-full px-2 mt-4">
           <h1 className="text-[24px] font-bold text-[#221750] leading-tight mb-4">
             By the end of the program, {childName || 'your child'} will be confidently writing letters and spelling words independently!
@@ -86,7 +81,6 @@ export default function ReadingLevelPage() {
         </div>
       </motion.main>
 
-      {/* Standardized Fixed Bottom Button */}
       <motion.div
         custom={direction}
         variants={pageVariants}

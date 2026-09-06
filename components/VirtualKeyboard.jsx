@@ -76,10 +76,8 @@ export default function VirtualKeyboard({
       return;
     }
 
-    // Default key insertion
     onChange(value + key);
 
-    // If shift was on (single letter capitalization), switch back to lowercase
     if (layout === 'uppercase') {
       setLayout('lowercase');
     }
@@ -170,7 +168,6 @@ export default function VirtualKeyboard({
       };
     }
 
-    // symbols
     return {
       row1: ['[', ']', '{', '}', '#', '%', '^', '*', '+', '='],
       row2: ['_', '\\', '|', '~', '<', '>', '€', '£', '¥', '•'],
@@ -189,7 +186,6 @@ export default function VirtualKeyboard({
       transition={{ type: "spring", damping: 25, stiffness: 300 }}
       className="fixed bottom-0 left-0 right-0 z-50 flex flex-col items-center bg-[#E5E8EC]/95 backdrop-blur-md border-t border-[#D1D5DB] shadow-2xl select-none"
     >
-      {/* iOS Top Bar (Cancel / Done) */}
       <div className="w-full max-w-[850px] flex items-center justify-between px-5 py-2.5 border-b border-[#D1D5DB]/70 text-[16px]">
         <button
           type="button"
@@ -207,19 +203,15 @@ export default function VirtualKeyboard({
         </button>
       </div>
 
-      {/* Keyboard Keys Layout */}
       <div className="w-full max-w-[850px] px-2 md:px-4 pt-3 pb-6 flex flex-col gap-2">
-        {/* Row 1 */}
         <div className="w-full flex justify-center gap-1.5">
           {rows.row1.map((k) => renderKey(k, "", "flex-1"))}
         </div>
 
-        {/* Row 2 */}
         <div className="w-full flex justify-center gap-1.5 px-[3%] md:px-[2.5%]">
           {rows.row2.map((k) => renderKey(k, "", "flex-1"))}
         </div>
 
-        {/* Row 3 */}
         <div className="w-full flex justify-center gap-1.5">
           {rows.row3.map((k) => {
             if (k === '{shift}' || k === '{backspace}' || k === '{symbols}' || k === '{numbers}') {
@@ -229,7 +221,6 @@ export default function VirtualKeyboard({
           })}
         </div>
 
-        {/* Row 4 */}
         <div className="w-full flex justify-center gap-1.5">
           {renderKey(rows.row4[0], "", "flex-[1.4]")}
           {renderKey(rows.row4[1], "", "flex-1")}

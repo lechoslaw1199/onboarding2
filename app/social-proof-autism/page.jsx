@@ -99,7 +99,6 @@ export default function SocialProofAutism() {
           </p>
         </div>
 
-        {/* Review Cards */}
         <div className="w-full flex flex-col gap-4 mb-2">
           {autismReviews.map((review, index) => (
             <div 

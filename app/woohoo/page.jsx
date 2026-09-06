@@ -35,14 +35,12 @@ export default function EmailEntry() {
     if (email.includes('@')) {
       setParentEmail(email);
       updateDirection(1);
-      // Route to next step
       router.push("/child-name"); 
     }
   };
 
   return (
     <div className={`w-full min-h-screen flex flex-col items-center bg-white md:px-6 font-quicksand overflow-x-hidden transition-all duration-300 ${showKeyboard ? 'pb-[340px]' : 'pb-12'}`}>
-      {/* Header */}
       <header className="w-full max-w-[450px] flex justify-center py-6">
         <img src="/letterschool-logo-name.svg" alt="LetterSchool" className="h-6 object-contain" />
       </header>
@@ -59,7 +57,6 @@ export default function EmailEntry() {
           Enter your email to get started with a personalized writing plan
         </h1>
 
-        {/* Email Input */}
         <div className="w-full px-4 mb-6">
           <div
             onClick={() => setShowKeyboard(true)}
@@ -89,7 +86,6 @@ export default function EmailEntry() {
           </div>
         </div>
 
-        {/* Continue Button */}
         <div className="w-full px-4 mb-6">
           <motion.button
             whileTap={email.includes('@') ? { scale: 0.98 } : {}}
@@ -103,7 +99,6 @@ export default function EmailEntry() {
           </motion.button>
         </div>
 
-        {/* Privacy Note */}
         <div className="w-full px-8 text-center mb-6">
           <p className="text-[13px] text-slate-500 font-medium leading-relaxed">
             We respect your privacy and never spam. Please read our{" "} 
@@ -112,7 +107,6 @@ export default function EmailEntry() {
           </p>
         </div>
 
-        {/* Social Proof Footer */}
         <div className="w-full flex flex-col items-center mt-auto pb-4">
           <img 
             src="/faces-7mio.jpeg" 
@@ -125,7 +119,6 @@ export default function EmailEntry() {
         </div>
       </motion.main>
 
-      {/* On-Screen Virtual Keyboard */}
       <VirtualKeyboard
         value={email}
         onChange={setEmail}
