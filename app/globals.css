@@ -1,0 +1,90 @@
+@font-face {
+  font-family: 'Gotham Rounded';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('/fonts/GothamRounded-Light.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Gotham Rounded';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/GothamRounded-Light.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Gotham Rounded';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/GothamRounded-Light.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Gotham Rounded';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/GothamRounded-Medium.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Gotham Rounded';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/GothamRounded-Medium.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Gotham Rounded';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/fonts/GothamRounded-Bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Gotham Rounded';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('/fonts/GothamRounded-Bold.woff') format('woff');
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Gotham Rounded', var(--font-gotham), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    @apply bg-white text-black flex flex-col min-h-screen items-center;
+  }
+}
+
+@layer components {
+  .logo-square {
+    @apply bg-purple-dark text-white px-1 py-0.5 rounded-[3px] text-[10px] ml-0.5 lowercase;
+  }
+}
+
+
+/* Target iPhones in portrait mode */
+@media only screen and (max-device-width: 430px) and (orientation: portrait) {
+  header.pt-4 {
+    padding-top: 55px !important;
+  }
+
+ header.pt-8 {
+    padding-top: 55px !important;
+  }
+  
+ header.py-6  {
+    padding-top: 55px !important;
+  }
+
+  
+}
