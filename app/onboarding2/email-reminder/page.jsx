@@ -136,12 +136,10 @@ export default function EmailReminderPage() {
             disabled={!isValidEmail}
             onClick={handleContinue}
             style={{ backgroundColor: currentTheme?.hex || '#099FF9' }}
-            className={`w-full h-14 rounded-full text-[18px] font-bold transition-all shadow-md ${
+            className={`w-full h-14 rounded-full text-[18px] font-bold transition-all shadow-md text-white ${
               !isValidEmail
-                ? 'opacity-50 cursor-not-allowed text-white'
-                : currentTheme?.id === 'yellow'
-                ? 'text-slate-900 hover:brightness-95 cursor-pointer'
-                : 'text-white hover:brightness-95 cursor-pointer'
+                ? 'opacity-50 cursor-not-allowed'
+                : 'hover:brightness-95 cursor-pointer'
             }`}
           >
             Continue
