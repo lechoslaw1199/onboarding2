@@ -23,35 +23,39 @@ const pageVariants = {
   }),
 };
 
+const ROTATIONS = [-1, 1.2, -0.8, 1, -0.6];
+
 export default function FutureProgressPage() {
   const router = useRouter();
   const { direction, updateDirection, formattedChildName, currentTheme } = useOnboarding2();
   const [visibleCount, setVisibleCount] = useState(0);
 
-  const lines = [
-    `${formattedChildName} can write their name clearly.`,
-    `${formattedChildName} can form letters the right way.`,
-    `${formattedChildName} can write short sentences on their own.`,
-    `${formattedChildName} can sound out words and spell simple ones.`,
-    `${formattedChildName} can read and tell what a story is about.`,
-    `🎉 And ${formattedChildName} is ready for GRADE 2!`,
+  const capName = formattedChildName || 'Your child';
+
+  const teacherQuotes = [
+    { icon: '✏️', text: `${capName} can write their name clearly.` },
+    { icon: '✍️', text: `${capName} can form letters the right way.` },
+    { icon: '📝', text: `${capName} can write short sentences on their own.` },
+    { icon: '🔤', text: `${capName} can sound out words and spell simple ones.` },
+    { icon: '📚', text: `${capName} can read and tell what a story is about.` },
+    { isCelebration: true, icon: '🎉', text: `And ${capName} is ready for GRADE 2!` },
   ];
 
   useEffect(() => {
     const timer = setInterval(() => {
       setVisibleCount((prev) => {
-        if (prev < lines.length) {
+        if (prev < teacherQuotes.length) {
           return prev + 1;
         }
         clearInterval(timer);
         return prev;
       });
-    }, 550);
+    }, 450);
 
     return () => clearInterval(timer);
-  }, [lines.length]);
+  }, [teacherQuotes.length]);
 
-  const isComplete = visibleCount >= lines.length;
+  const isComplete = visibleCount >= teacherQuotes.length;
 
   const handleContinue = () => {
     if (!isComplete) return;
@@ -60,7 +64,7 @@ export default function FutureProgressPage() {
   };
 
   return (
-    <div className="w-full flex flex-col items-center overflow-x-hidden">
+    <div className="w-full flex flex-col items-center overflow-x-hidden min-h-screen bg-white">
       <Onboarding2Header />
 
       <motion.main
@@ -69,46 +73,76 @@ export default function FutureProgressPage() {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="w-full max-w-[480px] px-5 pb-28 flex flex-col items-center pt-2 text-center"
+        className="w-full max-w-[480px] px-5 pb-32 flex flex-col items-center pt-2 text-center"
       >
-        <h1 className="text-[24px] font-bold text-[#221750] leading-tight mb-8 px-4">
+        <h1 className="text-[22px] sm:text-[24px] font-bold text-[#221750] leading-tight mb-6 px-3">
           After completing all LetterSchool lessons, you’ll hear teachers say:
         </h1>
 
-        <div className="w-full max-w-[400px] flex flex-col gap-3.5 mb-8">
-          {lines.map((line, idx) => {
-            const isVisible = idx < visibleCount;
-            const isEven = idx % 2 === 0;
+        {/* School Chalkboard Container */}
+        <div className="w-full max-w-[410px] rounded-[24px] border-[7px] border-[#8D5B4C] bg-[#1a1a1a] shadow-2xl relative overflow-hidden mb-6">
+          {/* Authentic Chalkboard Texture */}
+          <div
+            className="absolute inset-0 bg-cover bg-center pointer-events-none opacity-85"
+            style={{ backgroundImage: "url('/chalkboard.jpg')" }}
+          />
+          {/* Subtle Vignette for depth */}
+          <div className="absolute inset-0 bg-black/25 pointer-events-none shadow-[inset_0_2px_15px_rgba(0,0,0,0.7)]" />
 
-            return (
-              <div
-                key={idx}
-                className={`flex w-full ${isEven ? 'justify-start' : 'justify-end'}`}
-              >
-                {isVisible && (
+          {/* Teacher sayings list */}
+          <div className="relative z-10 p-4 sm:p-5 flex flex-col gap-3 min-h-[380px]">
+            {teacherQuotes.map((item, idx) => {
+              const isVisible = idx < visibleCount;
+              if (!isVisible) return null;
+
+              if (item.isCelebration) {
+                return (
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.6, y: 15 }}
+                    key={idx}
+                    initial={{ opacity: 0, scale: 0.85, y: 15 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{ type: "spring", damping: 15, stiffness: 250 }}
-                    className={`max-w-[88%] px-5 py-3.5 rounded-3xl font-semibold text-[16px] shadow-sm leading-snug ${
-                      idx === lines.length - 1
-                        ? 'text-white font-bold rounded-br-none'
-                        : isEven
-                        ? 'bg-[#EBF7FF] text-[#0369A1] border border-[#BAE6FD] rounded-bl-none'
-                        : 'bg-white text-[#221750] border border-slate-200 rounded-br-none'
+                    transition={{ type: "spring", damping: 16, stiffness: 240 }}
+                    style={{
+                      backgroundColor: currentTheme?.hex || '#099FF9',
+                    }}
+                    className={`w-full rounded-2xl px-4 py-3.5 shadow-xl flex items-center justify-center gap-2.5 text-center border-2 border-white/40 mt-1 ${
+                      currentTheme?.id === 'yellow' ? 'text-slate-900' : 'text-white'
                     }`}
-                    style={
-                      idx === lines.length - 1
-                        ? { backgroundColor: currentTheme?.hex || '#F9C700' }
-                        : undefined
-                    }
                   >
-                    {line}
+                    <span className="text-[22px]">🎉</span>
+                    <span className="text-[15px] sm:text-[16px] font-extrabold tracking-wide">
+                      {item.text}
+                    </span>
                   </motion.div>
-                )}
-              </div>
-            );
-          })}
+                );
+              }
+
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, scale: 0.8, y: 12 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ type: "spring", damping: 18, stiffness: 260 }}
+                  style={{
+                    transform: `rotate(${ROTATIONS[idx % ROTATIONS.length]}deg)`,
+                  }}
+                  className="w-full bg-white/95 backdrop-blur-sm rounded-2xl px-4 py-3 shadow-md flex items-center gap-3 border border-white/80"
+                >
+                  <span className="text-[20px] sm:text-[22px] shrink-0">{item.icon}</span>
+                  <p className="text-[14px] sm:text-[15px] font-bold text-[#221750] leading-snug text-left">
+                    “{item.text}”
+                  </p>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Wooden Chalk Ledge with Chalk Sticks */}
+          <div className="relative z-10 w-full h-3.5 bg-[#6D4233] border-t border-[#543226] flex items-center px-6 gap-2 shadow-inner">
+            <div className="w-5 h-1.5 rounded-full bg-white/90 shadow-sm" />
+            <div className="w-5 h-1.5 rounded-full bg-yellow-200/90 shadow-sm" />
+            <div className="w-4 h-1.5 rounded-full bg-pink-200/90 shadow-sm" />
+          </div>
         </div>
       </motion.main>
 
@@ -125,8 +159,12 @@ export default function FutureProgressPage() {
           disabled={!isComplete}
           onClick={handleContinue}
           style={{ backgroundColor: currentTheme?.hex || '#099FF9' }}
-          className={`w-full h-14 text-white rounded-full text-[18px] font-bold transition-all shadow-md ${
-            !isComplete ? 'opacity-50 cursor-not-allowed' : 'opacity-100 hover:brightness-95'
+          className={`w-full h-14 rounded-full text-[18px] font-bold transition-all shadow-md ${
+            !isComplete
+              ? 'opacity-50 cursor-not-allowed text-white'
+              : currentTheme?.id === 'yellow'
+              ? 'text-slate-900 hover:brightness-95'
+              : 'text-white hover:brightness-95'
           }`}
         >
           Continue
