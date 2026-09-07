@@ -23,11 +23,14 @@ const pageVariants = {
   }),
 };
 
+const LEVEL_PROGRESS = [15, 33, 50, 72, 90];
+
 export default function LearningLevelPage() {
   const router = useRouter();
   const {
     direction,
     updateDirection,
+    childName,
     formattedChildName,
     calculatedLevel,
     childAge,
@@ -45,19 +48,19 @@ export default function LearningLevelPage() {
     return computeLearningLevel(childAge, handwritingAnswers, readingAnswers, readingReason);
   }, [calculatedLevel, childAge, handwritingAnswers, readingAnswers, readingReason, computeLearningLevel]);
 
-  const levelIndex = Math.max(0, Math.min(4, activeLevel?.levelIndex ?? 3));
-  const currentLevelName = LEVEL_LABELS[levelIndex] || "Early Learner";
-  const outcomes = LEARNING_OUTCOMES[levelIndex] || LEARNING_OUTCOMES[3];
+  const levelIndex = Math.max(0, Math.min(4, activeLevel?.levelIndex ?? 2));
+  const currentLevelName = LEVEL_LABELS[levelIndex] || "Pre-K";
+  const outcomes = LEARNING_OUTCOMES[levelIndex] || LEARNING_OUTCOMES[2];
 
   const handleContinue = () => {
     updateDirection(1);
     router.push('/onboarding2/future-progress');
   };
 
-  const progressPct = (levelIndex / (LEVEL_LABELS.length - 1)) * 100;
+  const progressPct = LEVEL_PROGRESS[levelIndex] ?? 50;
 
   return (
-    <div className="w-full flex flex-col items-center overflow-x-hidden">
+    <div className="w-full flex flex-col items-center overflow-x-hidden min-h-screen bg-white">
       <Onboarding2Header />
 
       <motion.main
@@ -66,84 +69,64 @@ export default function LearningLevelPage() {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="w-full max-w-[480px] px-5 pb-36 flex flex-col items-center pt-2 text-center"
+        className="w-full max-w-[480px] px-6 pb-36 flex flex-col items-center pt-2 text-center"
       >
-        <h1 className="text-[24px] font-bold text-[#221750] leading-tight mb-6 px-4">
-          This is <span style={{ color: currentTheme?.hex || '#F9C700' }}>{formattedChildName}</span>&apos;s learning level
+        <h1 className="text-[24px] sm:text-[26px] font-bold text-[#221750] leading-tight mb-6">
+          This is {childName || formattedChildName || 'your child'}&apos;s learning level
         </h1>
 
-        <div className="w-full max-w-[420px] bg-white border border-slate-200 rounded-2xl p-5 mb-6 shadow-sm">
-          <div className="flex justify-between items-center mb-4 px-1">
-            {LEVEL_LABELS.map((lbl, idx) => (
-              <span
-                key={lbl}
-                style={{
-                  color: idx === levelIndex ? (currentTheme?.hex || '#F9C700') : undefined,
-                }}
-                className={`text-[11px] font-bold uppercase tracking-tight transition-colors ${
-                  idx === levelIndex ? '' : 'text-slate-400'
-                }`}
-              >
-                {lbl}
-              </span>
-            ))}
-          </div>
+        <div className="w-full max-w-[380px] sm:max-w-[420px] flex flex-col items-center mb-8">
+          <h2 className="text-[20px] sm:text-[22px] font-bold text-[#221750] text-center mb-3">
+            {currentLevelName}
+          </h2>
 
-          <div className="w-full h-2.5 bg-slate-100 rounded-full relative overflow-visible mb-2">
+          <div className="w-full h-2.5 bg-slate-200 rounded-full relative">
             <motion.div
               className="absolute left-0 top-0 h-full rounded-full"
-              style={{ backgroundColor: currentTheme?.hex || '#F9C700' }}
+              style={{ backgroundColor: currentTheme?.hex || '#099FF9' }}
               initial={{ width: 0 }}
-              animate={{ width: progressPct === 0 ? '12px' : `${progressPct}%` }}
+              animate={{ width: `${progressPct}%` }}
               transition={{ duration: 0.6, ease: "easeOut" }}
             />
             <motion.div
-              className="absolute top-1/2 -translate-y-1/2 w-5 h-5 border-2 border-white rounded-full shadow-md"
-              style={{ backgroundColor: currentTheme?.hex || '#F9C700' }}
+              className="absolute top-1/2 -translate-y-1/2 w-5 h-5 rounded-full shadow-sm"
+              style={{
+                backgroundColor: currentTheme?.hex || '#099FF9',
+                marginLeft: '-10px',
+              }}
               initial={{ left: 0 }}
-              animate={{ left: `calc(${progressPct}% - ${(progressPct / 100) * 20}px)` }}
+              animate={{ left: `${progressPct}%` }}
               transition={{ duration: 0.6, ease: "easeOut" }}
             />
           </div>
-
-          <div className="mt-3 text-center">
-            <span className="text-[13px] text-slate-500 font-semibold">Assigned Level: </span>
-            <span
-              className="text-[14px] font-bold px-3 py-1 rounded-full ml-1"
-              style={{
-                color: currentTheme?.hex || '#F9C700',
-                backgroundColor: currentTheme?.pastelBg || '#FEEBA3',
-              }}
-            >
-              {currentLevelName}
-            </span>
-          </div>
         </div>
 
-        <div className="w-full max-w-[420px] text-left mb-6">
-          <h2 className="text-[18px] font-bold text-[#221750] mb-3 px-1">
-            During this learning phase, LetterSchool helps {formattedChildName} build these skills:
-          </h2>
-          <div
-            className="border rounded-xl p-4 flex flex-col gap-2.5"
-            style={{
-              borderColor: `${currentTheme?.hex || '#F9C700'}30`,
-              backgroundColor: currentTheme?.pastelBg ? `${currentTheme.pastelBg}40` : '#FAF8FF',
-            }}
-          >
-            {outcomes.map((item, idx) => (
-              <p
-                key={idx}
-                className="text-[16px] font-medium leading-snug"
-                style={{ color: currentTheme?.hex || '#F9C700' }}
-              >
-                {item}
-              </p>
-            ))}
-          </div>
+        <p className="text-[18px] sm:text-[20px] font-semibold text-[#221750] text-center max-w-[380px] sm:max-w-[400px] leading-snug mb-8">
+          During this learning phase, LetterSchool helps {formattedChildName} build these skills.
+        </p>
+
+        <div className="w-full max-w-[380px] sm:max-w-[420px] flex flex-col gap-6 text-left mb-8">
+          {outcomes.map((item, idx) => {
+            const dashIdx = item.indexOf(' – ');
+            let title = item;
+            let desc = '';
+            if (dashIdx !== -1) {
+              title = item.substring(0, dashIdx);
+              desc = item.substring(dashIdx + 3);
+            }
+
+            return (
+              <div key={idx} className="flex items-start text-left">
+                <p className="text-[16px] sm:text-[17px] leading-relaxed text-[#221750]">
+                  <span className="font-bold text-[#221750]">{title} – </span>
+                  <span className="font-medium text-[#221750]">{desc}</span>
+                </p>
+              </div>
+            );
+          })}
         </div>
 
-        <p className="text-[12px] text-slate-400 max-w-[360px] leading-relaxed">
+        <p className="text-[12px] text-slate-400 max-w-[360px] text-center leading-relaxed">
           By continuing, you agree to our{' '}
           <a href="https://www.letterschool.com/legal/terms-of-use" className="underline text-slate-600">
             Terms of Service
@@ -167,7 +150,9 @@ export default function LearningLevelPage() {
           whileTap={{ scale: 0.98 }}
           onClick={handleContinue}
           style={{ backgroundColor: currentTheme?.hex || '#099FF9' }}
-          className="w-full h-14 text-white rounded-full text-[18px] font-bold transition-all shadow-md hover:brightness-95"
+          className={`w-full h-14 rounded-full text-[18px] font-bold transition-all shadow-md hover:brightness-95 ${
+            currentTheme?.id === 'yellow' ? 'text-slate-900' : 'text-white'
+          }`}
         >
           Continue
         </motion.button>
