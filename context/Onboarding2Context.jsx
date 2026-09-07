@@ -255,7 +255,7 @@ export function computeLearningLevel(ageStr, hwAnswers = [], rpAnswers = [], rea
 export function Onboarding2Provider({ children }) {
   const [childName, setChildName] = useState("");
   const [childAge, setChildAge] = useState(null);
-  const [themeColor, setThemeColor] = useState("primary");
+  const [themeColor, setThemeColor] = useState(null);
   const [teacherRecommended, setTeacherRecommended] = useState(null);
   const [readingReason, setReadingReason] = useState(null);
   const [handwritingStyle, setHandwritingStyle] = useState(null);
@@ -364,7 +364,7 @@ export function Onboarding2Provider({ children }) {
     ? childName.charAt(0).toUpperCase()
     : "A";
 
-  const currentTheme = THEME_CONFIG[themeColor] || THEME_CONFIG.primary;
+  const currentTheme = (themeColor && THEME_CONFIG[themeColor]) || THEME_CONFIG.primary;
 
   return (
     <Onboarding2Context.Provider

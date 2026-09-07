@@ -35,6 +35,7 @@ export default function ChildColorPage() {
   };
 
   const handleNext = () => {
+    if (!themeColor) return;
     updateDirection(1);
     router.push('/onboarding2/handwriting');
   };
@@ -56,7 +57,7 @@ export default function ChildColorPage() {
         </h1>
         <p className="text-[16px] text-slate-600 mb-8 max-w-[360px]">
           Choose the color{' '}
-          <span className="font-semibold" style={{ color: currentTheme?.hex || '#F9C700' }}>
+          <span className="font-semibold" style={{ color: themeColor ? currentTheme?.hex : '#221750' }}>
             {formattedChildName}
           </span>{' '}
           loves to learn with
@@ -93,10 +94,13 @@ export default function ChildColorPage() {
         className="fixed bottom-0 w-full max-w-[480px] px-8 pb-4 pt-2 bg-gradient-to-t from-white via-white to-transparent z-20"
       >
         <motion.button
-          whileTap={{ scale: 0.98 }}
+          whileTap={themeColor ? { scale: 0.98 } : {}}
+          disabled={!themeColor}
           onClick={handleNext}
           style={{ backgroundColor: currentTheme?.hex || '#099FF9' }}
-          className="w-full h-14 text-white rounded-full text-[18px] font-bold transition-all shadow-md hover:brightness-95"
+          className={`w-full h-14 text-white rounded-full text-[18px] font-bold transition-all shadow-md ${
+            !themeColor ? 'opacity-50 cursor-not-allowed' : 'opacity-100 hover:brightness-95'
+          }`}
         >
           Continue
         </motion.button>
