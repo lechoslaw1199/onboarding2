@@ -122,7 +122,6 @@ export default function ChildNamePage() {
         onChange={setName}
         onDone={() => {
           setShowKeyboard(false);
-          if (name.trim()) handleNext();
         }}
         onCancel={() => setShowKeyboard(false)}
         showKeyboard={showKeyboard}

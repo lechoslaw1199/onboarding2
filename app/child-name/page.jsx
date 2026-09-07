@@ -132,7 +132,7 @@ export default function ChildNamePage() {
       <VirtualKeyboard
         value={name}
         onChange={setName}
-        onDone={handleContinue}
+        onDone={() => setShowKeyboard(false)}
         onCancel={() => setShowKeyboard(false)}
         showKeyboard={showKeyboard}
       />
