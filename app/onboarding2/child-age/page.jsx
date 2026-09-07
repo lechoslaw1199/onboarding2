@@ -66,9 +66,6 @@ export default function ChildAgePage() {
           {ages.map((age) => {
             const isSelected = childAge === age;
             const isAnySelected = Boolean(childAge);
-            const bgColor = (!isAnySelected || isSelected)
-              ? (currentTheme?.hex || '#099FF9')
-              : (currentTheme?.pastelBg || '#D2EEFD');
 
             return (
               <motion.button
@@ -76,7 +73,8 @@ export default function ChildAgePage() {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => handleSelect(age)}
                 style={{
-                  backgroundColor: bgColor,
+                  backgroundColor: currentTheme?.hex || '#099FF9',
+                  opacity: isSelected ? 1 : 0.4,
                 }}
                 className="w-full aspect-square min-h-[72px] sm:min-h-[80px] rounded-[22px] sm:rounded-[24px] text-[24px] sm:text-[26px] font-extrabold text-white flex items-center justify-center transition-all duration-200 select-none shadow-sm hover:brightness-95"
               >
