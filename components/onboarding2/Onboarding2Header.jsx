@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useOnboarding2 } from '@/context/Onboarding2Context';
 import ProgressBar from '@/components/ProgressBar';
 
-export default function Onboarding2Header({ showBack = true, onClose = null, progress, progressOnly = false }) {
+export default function Onboarding2Header({ showBack = true, onClose = null, progress, progressOnly = false, isDark = false }) {
   const router = useRouter();
   const { updateDirection, currentTheme } = useOnboarding2();
 
@@ -36,7 +36,9 @@ export default function Onboarding2Header({ showBack = true, onClose = null, pro
         {showBack && (
           <button
             onClick={handleBack}
-            className="absolute left-0 text-slate-700 flex items-center justify-center w-10 h-10 rounded-full hover:bg-black/5 transition-colors"
+            className={`absolute left-0 ${
+              isDark ? 'text-white hover:bg-white/10' : 'text-slate-700 hover:bg-black/5'
+            } flex items-center justify-center w-10 h-10 rounded-full transition-colors`}
             aria-label="Back"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" className="w-8 h-8">
