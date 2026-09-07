@@ -74,7 +74,12 @@ export default function LearningQuestionsPage() {
     setReadingAnswers(updated);
 
     if (qIndex < READING_QUESTIONS.length - 1) {
-      setActiveQIndex(qIndex + 1);
+      setTimeout(() => {
+        const nextEl = document.getElementById(`rq-question-${qIndex + 1}`);
+        if (nextEl) {
+          nextEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 120);
     }
   };
 
@@ -105,89 +110,91 @@ export default function LearningQuestionsPage() {
           Tell us where your child is right now in reading and phonics.
         </p>
 
-        <div className="w-full max-w-[420px] flex flex-col gap-3">
+        <div className="w-full max-w-[420px] flex flex-col gap-3.5">
           {READING_QUESTIONS.map((q, idx) => {
             const currentAnswer = readingAnswers[idx];
-            const isOpen = activeQIndex === idx || currentAnswer !== null;
+            const isAnswered = currentAnswer !== null;
+            const isVisible = idx === 0 || readingAnswers[idx - 1] !== null;
+
+            if (!isVisible) return null;
 
             return (
-              <div
+              <motion.div
                 key={q.id}
-                className={`w-full rounded-lg border border-solid transition-all p-4 text-left ${
-                  currentAnswer !== null
-                    ? 'border-[#221750]/30 bg-white'
-                    : activeQIndex === idx
-                    ? 'border-[#221750] bg-white shadow-sm'
-                    : 'border-[#e2e8f0] bg-white'
+                id={`rq-question-${idx}`}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25 }}
+                className={`w-full rounded-2xl border-2 transition-all p-4 sm:p-5 text-left bg-white ${
+                  isAnswered
+                    ? 'border-slate-200/90 shadow-sm'
+                    : 'border-slate-300 shadow-md'
                 }`}
               >
-                <button
-                  type="button"
-                  onClick={() => setActiveQIndex(idx)}
-                  className="w-full flex items-center justify-between text-left"
-                >
-                  <p className="text-[16px] font-bold text-[#221750] pr-2 leading-snug">
-                    {q.text}
-                  </p>
-                  {currentAnswer && (
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[12px] font-bold uppercase tracking-wider text-slate-400">
+                    Question {idx + 1} of {READING_QUESTIONS.length}
+                  </span>
+                  {isAnswered && (
                     <span
-                      className="text-[13px] font-bold px-2.5 py-1 rounded-full shrink-0"
+                      className="text-[12px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1"
                       style={{
-                        color: currentTheme?.hex || '#F9C700',
-                        backgroundColor: currentTheme?.pastelBg || '#FEEBA3',
+                        color: currentTheme?.hex || '#099FF9',
+                        backgroundColor: currentTheme?.pastelBg || '#D2EEFD',
                       }}
                     >
-                      {currentAnswer}
+                      <svg className="w-3 h-3" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      Answered
                     </span>
                   )}
-                </button>
+                </div>
 
-                <AnimatePresence>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="pt-4 flex flex-col items-center"
-                    >
-                      {q.img && (
-                        <div className="mb-4 flex justify-center">
-                          <img
-                            src={q.img}
-                            alt=""
-                            className="max-h-20 object-contain rounded-xl"
-                          />
-                        </div>
-                      )}
+                <p className="text-[16px] font-bold text-[#221750] leading-snug mb-3">
+                  {q.text}
+                </p>
 
-                      <div className="w-full flex gap-2">
-                        {q.options.map((opt) => {
-                          const isOptSelected = currentAnswer === opt;
-                          return (
-                            <motion.button
-                              key={opt}
-                              whileTap={{ scale: 0.96 }}
-                              type="button"
-                              onClick={() => handleSelectAnswer(idx, opt)}
-                              style={{
-                                color: currentTheme?.hex || '#F9C700',
-                              }}
-                              className={`flex-1 h-12 rounded-lg font-bold text-[14px] border border-solid transition-all ${
-                                isOptSelected
-                                  ? 'bg-white border-[#221750] border-1 shadow-sm'
-                                  : 'bg-white border-[#e2e8f0]'
-                              }`}
-                            >
-                              {opt}
-                            </motion.button>
-                          );
-                        })}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+                {q.img && (
+                  <div className="mb-3.5 flex justify-center bg-slate-50/80 py-2.5 rounded-xl border border-slate-100">
+                    <img
+                      src={q.img}
+                      alt=""
+                      className="max-h-20 object-contain rounded-lg"
+                    />
+                  </div>
+                )}
+
+                <div className="grid grid-cols-3 gap-2">
+                  {q.options.map((opt) => {
+                    const isOptSelected = currentAnswer === opt;
+                    return (
+                      <motion.button
+                        key={opt}
+                        whileTap={{ scale: 0.95 }}
+                        type="button"
+                        onClick={() => handleSelectAnswer(idx, opt)}
+                        style={{
+                          backgroundColor: isOptSelected
+                            ? (currentTheme?.hex || '#099FF9')
+                            : '#F8FAFC',
+                          borderColor: isOptSelected
+                            ? (currentTheme?.hex || '#099FF9')
+                            : '#E2E8F0',
+                          color: isOptSelected ? '#ffffff' : '#1E293B',
+                        }}
+                        className={`min-h-[48px] px-1 py-1.5 rounded-xl font-bold text-[14px] sm:text-[15px] border-2 transition-all flex items-center justify-center text-center select-none ${
+                          isOptSelected
+                            ? 'shadow-md scale-[1.02]'
+                            : 'hover:bg-slate-100 hover:border-slate-300'
+                        }`}
+                      >
+                        {opt}
+                      </motion.button>
+                    );
+                  })}
+                </div>
+              </motion.div>
             );
           })}
         </div>
