@@ -136,14 +136,14 @@ export default function FutureProgressPage() {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="fixed bottom-0 w-full max-w-[480px] px-8 pb-5 pt-3 bg-gradient-to-t from-black/85 via-black/50 to-transparent z-20"
+        className="fixed bottom-0 w-full max-w-[480px] px-8 pb-5 pt-3 z-20 pointer-events-none"
       >
         <motion.button
           whileTap={isComplete ? { scale: 0.98 } : {}}
           disabled={!isComplete}
           onClick={handleContinue}
           style={{ backgroundColor: currentTheme?.hex || '#099FF9' }}
-          className={`w-full h-14 rounded-full text-[18px] font-bold transition-all shadow-lg ${
+          className={`w-full h-14 rounded-full text-[18px] font-bold transition-all shadow-lg pointer-events-auto ${
             !isComplete
               ? 'opacity-50 cursor-not-allowed text-white'
               : currentTheme?.id === 'yellow'
