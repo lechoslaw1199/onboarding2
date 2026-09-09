@@ -74,7 +74,7 @@ export default function ChildAgePage() {
                 onClick={() => handleSelect(age)}
                 style={{
                   backgroundColor: currentTheme?.hex || '#099FF9',
-                  opacity: isSelected ? 1 : 0.4,
+                  opacity: isAnySelected && !isSelected ? 0.4 : 1,
                 }}
                 className="w-full aspect-square min-h-[72px] sm:min-h-[80px] rounded-[22px] sm:rounded-[24px] text-[24px] sm:text-[26px] font-extrabold text-white flex items-center justify-center transition-all duration-200 select-none shadow-sm hover:brightness-95"
               >

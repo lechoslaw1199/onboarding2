@@ -66,13 +66,15 @@ export default function ChildColorPage() {
         <div className="grid grid-cols-3 gap-3.5 sm:gap-4 w-full max-w-[390px] sm:max-w-[410px] mb-8">
           {COLOR_OPTIONS.map((c) => {
             const isSelected = themeColor === c.id;
+            const isAnySelected = Boolean(themeColor);
             return (
               <motion.button
                 key={c.id}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => handleSelect(c.id)}
                 style={{
-                  backgroundColor: isSelected ? c.hex : c.pastelBg,
+                  backgroundColor: c.hex,
+                  opacity: isAnySelected && !isSelected ? 0.4 : 1,
                 }}
                 className={`w-full aspect-[1.12/1] min-h-[96px] sm:min-h-[105px] rounded-[26px] sm:rounded-[28px] font-bold text-[18px] sm:text-[19px] text-white flex items-center justify-center transition-all duration-200 shadow-sm hover:brightness-95 select-none ${
                   isSelected ? 'shadow-md scale-[1.02]' : ''
